@@ -24,8 +24,7 @@ export default function UserGuest() {
           title="Ver tu perfil"
           buttonStyle={styles.btnStyle}
           containerStyle={styles.btnContainer}
-          onPress={() => console.log("Click!")}
-          //onPress={() => navigation.navigate("login")}
+          onPress={() => navigation.navigate("login")}
         />
       </View>
     </ScrollView>
