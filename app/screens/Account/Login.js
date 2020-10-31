@@ -16,6 +16,10 @@ export default function Login() {
         resizeMode="contain"
         style={styles.logo}
       />
+      <View>
+        <Text>Login Form</Text>
+        <Text>Crea Account</Text>
+      </View>
       {/* <View style={styles.viewContainer}>
         <LoginForm toastRef={toastRef} />
         <CreateAccount />
