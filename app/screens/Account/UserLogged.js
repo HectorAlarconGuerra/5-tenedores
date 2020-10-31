@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+{
+  /*import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Button } from "react-native-elements";
 import Toast from "react-native-easy-toast";
@@ -71,3 +72,5 @@ const styles = StyleSheet.create({
     color: "#00a680",
   },
 });
+*/
+}
