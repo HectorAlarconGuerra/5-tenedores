@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { StyleSheet, View, ScrollView, Text, Image } from "react-native";
 import { Divider } from "react-native-elements";
-//import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 //import Toast from "react-native-easy-toast";
 //import LoginForm from "../../components/Account/LoginForm";
 //import LoginFacebook from "../../components/Account/LoginFacebook";
@@ -37,12 +37,14 @@ export default function Login() {
 }
 
 function CreateAccount() {
+  const navigation = useNavigation();
+
   return (
     <Text style={styles.textRegister}>
       Aún no tienes una cuenta?{" "}
       <Text
         style={styles.btnRegister}
-        onPress={() => console.log("Registro pepita...")}
+        onPress={() => navigation.navigate("register")}
       >
         Registrate
       </Text>
