@@ -15,13 +15,13 @@ export default function RegisterForm() {
         placeholder="Correo electronico"
         containerStyle={styles.inputForm}
         //     onChange={(e) => onChange(e, "email")}
-        //     rightIcon={
-        //       <Icon
-        //         type="material-community"
-        //         name="at"
-        //         iconStyle={styles.iconRight}
-        //       />
-        //    }
+        rightIcon={
+          <Icon
+            type="material-community"
+            name="at"
+            iconStyle={styles.iconRight}
+          />
+        }
       />
       <Input
         placeholder="Contraseña"
@@ -30,14 +30,15 @@ export default function RegisterForm() {
         secureTextEntry={true}
         //secureTextEntry={showPassword ? false : true}
         // onChange={(e) => onChange(e, "password")}
-        // rightIcon={
-        //   <Icon
-        //     type="material-community"
-        //     name={showPassword ? "eye-off-outline" : "eye-outline"}
-        //     iconStyle={styles.iconRight}
-        //     onPress={() => setShowPassword(!showPassword)}
-        //   />
-        // }
+        rightIcon={
+          <Icon
+            type="material-community"
+            name="eye-outline"
+            //   name={showPassword ? "eye-off-outline" : "eye-outline"}
+            iconStyle={styles.iconRight}
+            //     onPress={() => setShowPassword(!showPassword)}
+          />
+        }
       />
       <Input
         placeholder="Repetir contraseña"
@@ -46,14 +47,15 @@ export default function RegisterForm() {
         secureTextEntry={true}
         //secureTextEntry={showRepeatPassword ? false : true}
         //  onChange={(e) => onChange(e, "repeatPassword")}
-        //  rightIcon={
-        //    <Icon
-        //      type="material-community"
-        //      name={showRepeatPassword ? "eye-off-outline" : "eye-outline"}
-        //      iconStyle={styles.iconRight}
-        //      onPress={() => setShowRepeatPassword(!showRepeatPassword)}
-        //    />
-        //  }
+        rightIcon={
+          <Icon
+            type="material-community"
+            //      name={showRepeatPassword ? "eye-off-outline" : "eye-outline"}
+            name="eye-outline"
+            iconStyle={styles.iconRight}
+            //      onPress={() => setShowRepeatPassword(!showRepeatPassword)}
+          />
+        }
       />
       <Button
         title="Unirse"
@@ -200,9 +202,9 @@ const styles = StyleSheet.create({
 */
   const styles = StyleSheet.create({
     formContainer: {
-      // flex: 1,
-      // alignItems: "center",
-      // justifyContent: "center",
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
       marginTop: 30,
     },
     inputForm: {
@@ -215,6 +217,9 @@ const styles = StyleSheet.create({
     },
     btnRegister: {
       backgroundColor: "#00a680",
+    },
+    iconRight: {
+      color: "#c1c1c1",
     },
   });
 }
