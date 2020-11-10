@@ -9,9 +9,9 @@ export default function InfoUser(props) {
   const {
     userInfo: { uid, photoURL, displayName, email },
     toastRef,
+    setLoading,
+    setLoadingText,
   } = props;
-
-  console.log(props.userInfo);
 
   const changeAvatar = async () => {
     const resultPermission = await Permissions.askAsync(
@@ -42,8 +42,8 @@ export default function InfoUser(props) {
   };
 
   const uploadImage = async (uri) => {
-    //   setLoadingText("Actualizando Avatar");
-    //  setLoading(true);
+    setLoadingText("Actualizando Avatar");
+    setLoading(true);
 
     const response = await fetch(uri);
 
@@ -63,12 +63,12 @@ export default function InfoUser(props) {
           photoURL: response,
         };
         await firebase.auth().currentUser.updateProfile(update);
-        console.log("Imagen actualizada");
-        //       setLoading(false);
+
+        setLoading(false);
+      })
+      .catch(() => {
+        toastRef.current.show("Error al actualizar el avatar.");
       });
-    //     .catch(() => {
-    //       toastRef.current.show("Error al actualizar el avatar.");
-    //     });
   };
 
   return (
