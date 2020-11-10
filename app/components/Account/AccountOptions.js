@@ -1,9 +1,8 @@
-import React from "react";
-//import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text } from "react-native";
 import { ListItem } from "react-native-elements";
 import { map } from "lodash";
-//import Modal from "../Modal";
+import Modal from "../Modal";
 //import ChangeDisplayNameForm from "./ChangeDisplayNameForm";
 //import ChangeEmailForm from "./ChangeEmailForm";
 //import ChangePasswordForm from "./ChangePasswordForm";
@@ -12,50 +11,49 @@ export default function AccountOptions(props) {
   const { userInfo, toastRef } = props;
 
   // const { userInfo, toastRef, setRealoadUserInfo } = props;
-  // const [showModal, setShowModal] = useState(false);
-  // const [renderComponent, setRenderComponent] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [renderComponent, setRenderComponent] = useState(null);
 
   const selectedComponent = (key) => {
-    console.log("Click!!");
-    console.log(key);
-    // switch (key) {
-    // case "displayName":
-    // setRenderComponent(
-    // <ChangeDisplayNameForm
-    // displayName={userInfo.displayName}
-    //  setShowModal={setShowModal}
-    //toastRef={toastRef}
-    //  setRealoadUserInfo={setRealoadUserInfo}
-    // />
-    //  );
-    //  setShowModal(true);
-    //  break;
-    //  case "email":
-    //   setRenderComponent(
-    //     <ChangeEmailForm
-    //       email={userInfo.email}
-    //       setShowModal={setShowModal}
-    //       toastRef={toastRef}
-    //       setRealoadUserInfo={setRealoadUserInfo}
-    //    />
-    //   );
-    //   setShowModal(true);
-    //   break;
-    // case "password":
-    //   setRenderComponent(
-    //     <ChangePasswordForm setShowModal={setShowModal} toastRef={toastRef} />
-    //   );
-    //   setShowModal(true);
-    //   break;
-    //  default:
-    //   setRenderComponent(null);
-    //   setShowModal(false);
-    //   break;
-    // }
+    switch (key) {
+      case "displayName":
+        setRenderComponent(
+          <Text>Cambiando nombre y apellidos</Text>
+          // <ChangeDisplayNameForm
+          // displayName={userInfo.displayName}
+          //  setShowModal={setShowModal}
+          //toastRef={toastRef}
+          //  setRealoadUserInfo={setRealoadUserInfo}
+          // />
+        );
+        setShowModal(true);
+        break;
+      case "email":
+        setRenderComponent(
+          <Text>Cambiando Email</Text>
+          //     <ChangeEmailForm
+          //       email={userInfo.email}
+          //       setShowModal={setShowModal}
+          //       toastRef={toastRef}
+          //       setRealoadUserInfo={setRealoadUserInfo}
+          //    />
+        );
+        setShowModal(true);
+        break;
+      case "password":
+        setRenderComponent(
+          <Text>Cambiando Contraseña</Text>
+          //     <ChangePasswordForm setShowModal={setShowModal} toastRef={toastRef} />
+        );
+        setShowModal(true);
+        break;
+      default:
+        setRenderComponent(null);
+        setShowModal(false);
+        break;
+    }
   };
   const menuOptions = generateOptions(selectedComponent);
-  // const menuOptions = generateOptions();
-  //console.log(menuOptions);
 
   return (
     <View>
@@ -77,7 +75,11 @@ export default function AccountOptions(props) {
           onPress={menu.onPress}
         />
       ))}
-
+      {renderComponent && (
+        <Modal isVisible={showModal} setIsVisible={setShowModal}>
+          {renderComponent}
+        </Modal>
+      )}
       {/* {map(menuOptions, (menu, index) => (
         <ListItem
           key={index}
