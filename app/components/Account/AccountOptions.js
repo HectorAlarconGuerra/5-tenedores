@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 import { ListItem } from "react-native-elements";
 import { map } from "lodash";
 import Modal from "../Modal";
-//import ChangeDisplayNameForm from "./ChangeDisplayNameForm";
+import ChangeDisplayNameForm from "./ChangeDisplayNameForm";
 //import ChangeEmailForm from "./ChangeEmailForm";
 //import ChangePasswordForm from "./ChangePasswordForm";
 
@@ -18,13 +18,12 @@ export default function AccountOptions(props) {
     switch (key) {
       case "displayName":
         setRenderComponent(
-          <Text>Cambiando nombre y apellidos</Text>
-          // <ChangeDisplayNameForm
-          // displayName={userInfo.displayName}
-          //  setShowModal={setShowModal}
-          //toastRef={toastRef}
-          //  setRealoadUserInfo={setRealoadUserInfo}
-          // />
+          <ChangeDisplayNameForm
+            displayName={userInfo.displayName}
+            setShowModal={setShowModal}
+            toastRef={toastRef}
+            //  setRealoadUserInfo={setRealoadUserInfo}
+          />
         );
         setShowModal(true);
         break;
