@@ -8,9 +8,7 @@ import ChangeDisplayNameForm from "./ChangeDisplayNameForm";
 //import ChangePasswordForm from "./ChangePasswordForm";
 
 export default function AccountOptions(props) {
-  const { userInfo, toastRef } = props;
-
-  // const { userInfo, toastRef, setRealoadUserInfo } = props;
+  const { userInfo, toastRef, setRealoadUserInfo } = props;
   const [showModal, setShowModal] = useState(false);
   const [renderComponent, setRenderComponent] = useState(null);
 
@@ -22,7 +20,7 @@ export default function AccountOptions(props) {
             displayName={userInfo.displayName}
             setShowModal={setShowModal}
             toastRef={toastRef}
-            //  setRealoadUserInfo={setRealoadUserInfo}
+            setRealoadUserInfo={setRealoadUserInfo}
           />
         );
         setShowModal(true);
