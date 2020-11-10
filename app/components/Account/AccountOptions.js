@@ -4,7 +4,7 @@ import { ListItem } from "react-native-elements";
 import { map } from "lodash";
 import Modal from "../Modal";
 import ChangeDisplayNameForm from "./ChangeDisplayNameForm";
-//import ChangeEmailForm from "./ChangeEmailForm";
+import ChangeEmailForm from "./ChangeEmailForm";
 //import ChangePasswordForm from "./ChangePasswordForm";
 
 export default function AccountOptions(props) {
@@ -27,13 +27,12 @@ export default function AccountOptions(props) {
         break;
       case "email":
         setRenderComponent(
-          <Text>Cambiando Email</Text>
-          //     <ChangeEmailForm
-          //       email={userInfo.email}
-          //       setShowModal={setShowModal}
-          //       toastRef={toastRef}
-          //       setRealoadUserInfo={setRealoadUserInfo}
-          //    />
+          <ChangeEmailForm
+            email={userInfo.email}
+            setShowModal={setShowModal}
+            toastRef={toastRef}
+            setRealoadUserInfo={setRealoadUserInfo}
+          />
         );
         setShowModal(true);
         break;
