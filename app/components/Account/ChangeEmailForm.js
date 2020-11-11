@@ -17,6 +17,7 @@ export default function ChangeEmailForm(props) {
   // };
 
   const onSubmit = () => {
+    console.log("Formulario enviado...");
     //   setErrors({});
     //   if (!formData.email || email === formData.email) {
     //     setErrors({
@@ -59,15 +60,38 @@ export default function ChangeEmailForm(props) {
     <View style={styles.view}>
       <Input
         placeholder="Correo electronico"
-        //    containerStyle={styles.input}
-        //    defaultValue={email || ""}
-        //    rightIcon={{
-        //      type: "material-community",
-        //      name: "at",
-        //      color: "#c2c2c2",
-        //    }}
+        containerStyle={styles.input}
+        defaultValue={email || ""}
+        rightIcon={{
+          type: "material-community",
+          name: "at",
+          color: "#c2c2c2",
+        }}
         //    onChange={(e) => onChange(e, "email")}
         //    errorMessage={errors.email}
+      />
+      <Input
+        placeholder="Contraseña"
+        containerStyle={styles.input}
+        password={true}
+        secureTextEntry={true}
+        // secureTextEntry={showPassword ? false : true}
+        rightIcon={{
+          type: "material-community",
+          name: "eye-outline",
+          //   name: showPassword ? "eye-off-outline" : "eye-outline",
+          color: "#c2c2c2",
+          //   onPress: () => setShowPassword(!showPassword),
+        }}
+        // onChange={(e) => onChange(e, "password")}
+        // errorMessage={errors.password}
+      />
+      <Button
+        title="Cambiar email"
+        containerStyle={styles.btnContainer}
+        buttonStyle={styles.btn}
+        onPress={onSubmit}
+        //  loading={isLoading}
       />
     </View>
   );
@@ -86,14 +110,14 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
   },
-  // input: {
-  //   marginBottom: 10,
-  // },
-  // btnContainer: {
-  //   marginTop: 20,
-  //   width: "95%",
-  // },
-  // btn: {
-  //   backgroundColor: "#00a680",
-  // },
+  input: {
+    marginBottom: 10,
+  },
+  btnContainer: {
+    marginTop: 20,
+    width: "95%",
+  },
+  btn: {
+    backgroundColor: "#00a680",
+  },
 });
