@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { size } from "lodash";
-//import * as firebase from "firebase";
+import * as firebase from "firebase";
 import { reauthenticate } from "../../utils/api";
 
 export default function ChangePasswordForm(props) {
-  //const { setShowModal, toastRef } = props;
+  const { setShowModal, toastRef } = props;
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(defualtValue());
   const [errors, setErrors] = useState({});
@@ -17,7 +17,7 @@ export default function ChangePasswordForm(props) {
   };
 
   const onSubmit = async () => {
-    //  let isSetErrors = true;
+    let isSetErrors = true;
     let errorsTemp = {};
     setErrors({});
 
@@ -48,38 +48,34 @@ export default function ChangePasswordForm(props) {
         repeatNewPassword: "La contraseña tiene que ser mayor a 5 caracteres.",
       };
     } else {
-      //    setIsLoading(true);
+      setIsLoading(true);
       await reauthenticate(formData.password)
-        .then(() => {
-          console.log("OK");
+        .then(async () => {
+          await firebase
+            .auth()
+            .currentUser.updatePassword(formData.newPassword)
+            .then(() => {
+              isSetErrors = false;
+              setIsLoading(false);
+              setShowModal(false);
+              firebase.auth().signOut();
+            })
+            .catch(() => {
+              errorsTemp = {
+                other: "Error al actualizar la contraseña",
+              };
+              //            setIsLoading(false);
+            });
         })
-        //    .then(async () => {
-        //        await firebase
-        //          .auth()
-        //          .currentUser.updatePassword(formData.newPassword)
-        //          .then(() => {
-        //            isSetErrors = false;
-        //            setIsLoading(false);
-        //            setShowModal(false);
-        //            firebase.auth().signOut();
-        //          })
-        //         .catch(() => {
-        //            errorsTemp = {
-        //              other: "Error al actualizar la contraseña",
-        //            };
-        //            setIsLoading(false);
-        //          });
-        //      })
         .catch(() => {
           errorsTemp = {
             password: "La contraseña no es correcta.",
           };
-          //        setIsLoading(false);
+          setIsLoading(false);
         });
     }
 
-    //  isSetErrors && setErrors(errorsTemp);
-    setErrors(errorsTemp);
+    isSetErrors && setErrors(errorsTemp);
   };
 
   return (
@@ -134,9 +130,9 @@ export default function ChangePasswordForm(props) {
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
         onPress={onSubmit}
-        //     loading={isLoading}
+        loading={isLoading}
       />
-      {/* <Text>{errors.other}</Text>*/}
+      <Text>{errors.other}</Text>
     </View>
   );
 }
