@@ -25,7 +25,13 @@
         "LOCATION",
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION"
-      ]
+      ],
+      "package": "com.serpro.cincotenedores",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBuHo3LEi8O2h7xWZaaZr1F3jcy9Lu8w_Q"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
