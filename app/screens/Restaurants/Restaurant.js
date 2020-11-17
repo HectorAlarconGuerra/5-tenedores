@@ -4,47 +4,62 @@ import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
 //import { map } from "lodash";
 //import { useFocusEffect } from "@react-navigation/native";
 //import Toast from "react-native-easy-toast";
-//import Loading from "../../components/Loading";
-//import Carousel from "../../components/Carousel";
+import Loading from "../../components/Loading";
+import Carousel from "../../components/Carousel";
 //import Map from "../../components/Map";
 //import ListReviews from "../../components/Restaurants/ListReviews";
 
-//import { firebaseApp } from "../../utils/firebase";
-//import firebase from "firebase/app";
-//import "firebase/firestore";
+import { firebaseApp } from "../../utils/firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
-//const db = firebase.firestore(firebaseApp);
-//const screenWidth = Dimensions.get("window").width;
+const db = firebase.firestore(firebaseApp);
+const screenWidth = Dimensions.get("window").width;
 
 export default function Restaurant(props) {
-  console.log(props);
-  //  const { navigation, route } = props;
-  //  const { id, name } = route.params;
-  //  const [restaurant, setRestaurant] = useState(null);
-  //  const [rating, setRating] = useState(0);
+  const { navigation, route } = props;
+  const { id, name } = route.params;
+  const [restaurant, setRestaurant] = useState(null);
+
+  const [rating, setRating] = useState(0);
   //  const [isFavorite, setIsFavorite] = useState(false);
   //  const [userLogged, setUserLogged] = useState(false);
   //  const toastRef = useRef();
 
-  //  navigation.setOptions({ title: name });
+  navigation.setOptions({ title: name });
 
   //  firebase.auth().onAuthStateChanged((user) => {
   //    user ? setUserLogged(true) : setUserLogged(false);
   //  });
 
-  //  useFocusEffect(
-  //    useCallback(() => {
-  //      db.collection("restaurants")
-  //        .doc(id)
-  //        .get()
-  //        .then((response) => {
-  //          const data = response.data();
-  //          data.id = response.id;
-  //          setRestaurant(data);
-  //          setRating(data.rating);
-  //        });
-  //    }, [])
-  //  );
+  {
+    /*useFocusEffect(
+    useCallback(() => {
+      db.collection("restaurants")
+        .doc(id)
+        .get()
+        .then((response) => {
+          const data = response.data();
+          data.id = response.id;
+          setRestaurant(data);
+          setRating(data.rating);
+        });
+    }, [])
+  );
+*/
+  }
+
+  useEffect(() => {
+    db.collection("restaurants")
+      .doc(id)
+      .get()
+      .then((response) => {
+        const data = response.data();
+        data.id = response.id;
+        setRestaurant(data);
+        setRating(data.rating);
+      });
+  }, []);
 
   //  useEffect(() => {
   //    if (userLogged && restaurant) {
@@ -106,60 +121,42 @@ export default function Restaurant(props) {
   //      });
   //  };
 
-  //  if (!restaurant) return <Loading isVisible={true} text="Cargando..." />;
+  if (!restaurant) return <Loading isVisible={true} text="Cargando..." />;
 
   return (
     <ScrollView vertical style={styles.viewBody}>
-      <View style={styles.viewFavorite}>
-        <Text>Restaurant info.....</Text>
-        {/*      <Icon
-          type="material-community"
-          name={isFavorite ? "heart" : "heart-outline"}
-          onPress={isFavorite ? removeFavorite : addFavorite}
-          color={isFavorite ? "#f00" : "#000"}
-          size={35}
-          underlayColor="transparent"
-  />*/}
-      </View>
-      {/*<Carousel
+      <Carousel
         arrayImages={restaurant.images}
         height={250}
         width={screenWidth}
-      />*/}
-      {/*<TitleRestaurant
+      />
+      <TitleRestaurant
         name={restaurant.name}
         description={restaurant.description}
         rating={rating}
-      />*/}
-      {/*<RestaurantInfo
-        location={restaurant.location}
-        name={restaurant.name}
-        address={restaurant.address}
-      />*/}
-      {/*<ListReviews navigation={navigation} idRestaurant={restaurant.id} />*/}
-      {/*<Toast ref={toastRef} position="center" opacity={0.9} />*/}
+      />
     </ScrollView>
   );
 }
 
-//function TitleRestaurant(props) {
-//  const { name, description, rating } = props;
+function TitleRestaurant(props) {
+  const { name, description, rating } = props;
 
-//  return (
-//    <View style={styles.viewRestaurantTitle}>
-//      <View style={{ flexDirection: "row" }}>
-//        <Text style={styles.nameRestaurant}>{name}</Text>
-//        <Rating
-//          style={styles.rating}
-//          imageSize={20}
-//          readonly
-//          startingValue={parseFloat(rating)}
-//        />
-//      </View>
-//      <Text style={styles.descriptionRestaurant}>{description}</Text>
-//    </View>
-//  );
-//}
+  return (
+    <View style={styles.viewRestaurantTitle}>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={styles.nameRestaurant}>{name}</Text>
+        {/* <Rating
+          style={styles.rating}
+          imageSize={20}
+          readonly
+          startingValue={parseFloat(rating)}
+       />*/}
+      </View>
+      <Text style={styles.descriptionRestaurant}>{description}</Text>
+    </View>
+  );
+}
 
 //function RestaurantInfo(props) {
 //  const { location, name, address } = props;
