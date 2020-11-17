@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
-//import { Rating, ListItem, Icon } from "react-native-elements";
-//import { map } from "lodash";
+import { Rating, ListItem, Icon } from "react-native-elements";
+import { map } from "lodash";
 //import { useFocusEffect } from "@react-navigation/native";
 //import Toast from "react-native-easy-toast";
 import Loading from "../../components/Loading";
 import Carousel from "../../components/Carousel";
-//import Map from "../../components/Map";
-//import ListReviews from "../../components/Restaurants/ListReviews";
+import Map from "../../components/Map";
+import ListReviews from "../../components/Restaurants/ListReviews";
 
 import { firebaseApp } from "../../utils/firebase";
 import firebase from "firebase/app";
@@ -135,6 +135,11 @@ export default function Restaurant(props) {
         description={restaurant.description}
         rating={rating}
       />
+      <RestaurantInfo
+        location={restaurant.location}
+        name={restaurant.name}
+        address={restaurant.address}
+      />
     </ScrollView>
   );
 }
@@ -146,63 +151,63 @@ function TitleRestaurant(props) {
     <View style={styles.viewRestaurantTitle}>
       <View style={{ flexDirection: "row" }}>
         <Text style={styles.nameRestaurant}>{name}</Text>
-        {/* <Rating
+        <Rating
           style={styles.rating}
           imageSize={20}
           readonly
           startingValue={parseFloat(rating)}
-       />*/}
+        />
       </View>
       <Text style={styles.descriptionRestaurant}>{description}</Text>
     </View>
   );
 }
 
-//function RestaurantInfo(props) {
-//  const { location, name, address } = props;
-//
-//  const listInfo = [
-//    {
-//      text: address,
-//      iconName: "map-marker",
-//      iconType: "material-community",
-//      action: null,
-//    },
-//    {
-//      text: "111 222 333",
-//      iconName: "phone",
-//      iconType: "material-community",
-//      action: null,
-//    },
-//    {
-//      text: "xAgustin93@gmail.com",
-//      iconName: "at",
-//      iconType: "material-community",
-//      action: null,
-//    },
-//  ];
+function RestaurantInfo(props) {
+  const { location, name, address } = props;
 
-//  return (
-//    <View style={styles.viewRestaurantInfo}>
-//      <Text style={styles.restaurantInfoTitle}>
-//        Información sobre el restaurante
-//      </Text>
-//      <Map location={location} name={name} height={100} />
-//      {map(listInfo, (item, index) => (
-//        <ListItem
-//          key={index}
-//          title={item.text}
-//          leftIcon={{
-//            name: item.iconName,
-//            type: item.iconType,
-//            color: "#00a680",
-//          }}
-//          containerStyle={styles.containerListItem}
-//        />
-//      ))}
-//    </View>
-//  );
-//}
+  const listInfo = [
+    {
+      text: address,
+      iconName: "map-marker",
+      iconType: "material-community",
+      action: null,
+    },
+    {
+      text: "111 222 333",
+      iconName: "phone",
+      iconType: "material-community",
+      action: null,
+    },
+    {
+      text: "xAgustin93@gmail.com",
+      iconName: "at",
+      iconType: "material-community",
+      action: null,
+    },
+  ];
+
+  return (
+    <View style={styles.viewRestaurantInfo}>
+      <Text style={styles.restaurantInfoTitle}>
+        Información sobre el restaurante
+      </Text>
+      <Map location={location} name={name} height={100} />
+      {map(listInfo, (item, index) => (
+        <ListItem
+          key={index}
+          title={item.text}
+          leftIcon={{
+            name: item.iconName,
+            type: item.iconType,
+            color: "#00a680",
+          }}
+          containerStyle={styles.containerListItem}
+        />
+      ))}
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   viewBody: {
