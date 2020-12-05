@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-//import { Button, Avatar, Rating } from "react-native-elements";
-//import { map } from "lodash";
+import { Button, Avatar, Rating } from "react-native-elements";
+import { map } from "lodash";
 
-//import { firebaseApp } from "../../utils/firebase";
-//import firebase from "firebase/app";
+import { firebaseApp } from "../../utils/firebase";
+import firebase from "firebase/app";
 //import "firebase/firestore";
 
-//const db = firebase.firestore(firebaseApp);
+const db = firebase.firestore(firebaseApp);
 
 export default function ListReviews(props) {
-  //  const { navigation, idRestaurant } = props;
-  //  const [userLogged, setUserLogged] = useState(false);
-  //  const [reviews, setReviews] = useState([]);
+  const { navigation, idRestaurant, setRating } = props;
+  const [userLogged, setUserLogged] = useState(false);
+  const [reviews, setReviews] = useState([]);
 
-  //  firebase.auth().onAuthStateChanged((user) => {
-  //    user ? setUserLogged(true) : setUserLogged(false);
-  //  });
+  firebase.auth().onAuthStateChanged((user) => {
+    user ? setUserLogged(true) : setUserLogged(false);
+  });
 
   //  useEffect(() => {
   //    db.collection("reviews")
@@ -36,7 +36,7 @@ export default function ListReviews(props) {
   return (
     <View>
       <Text>Hola</Text>
-      {/*   {userLogged ? (
+      {userLogged ? (
         <Button
           title="Escribe una opinión"
           buttonStyle={styles.btnAddReview}
@@ -68,7 +68,7 @@ export default function ListReviews(props) {
 
       {map(reviews, (review, index) => (
         <Review key={index} review={review} />
-      ))}*/}
+      ))}
     </View>
   );
 }

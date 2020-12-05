@@ -10,6 +10,7 @@ export default function Map(props) {
       latitude: location.latitude,
       longitude: location.longitude,
       zoom: 19,
+      query: name,
     });
   };
 

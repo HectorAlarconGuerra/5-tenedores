@@ -25,8 +25,9 @@ export default function Restaurant(props) {
   //  const [isFavorite, setIsFavorite] = useState(false);
   //  const [userLogged, setUserLogged] = useState(false);
   //  const toastRef = useRef();
-
-  navigation.setOptions({ title: name });
+  useEffect(() => {
+    navigation.setOptions({ title: name });
+  }, [navigation]);
 
   //  firebase.auth().onAuthStateChanged((user) => {
   //    user ? setUserLogged(true) : setUserLogged(false);
@@ -139,6 +140,12 @@ export default function Restaurant(props) {
         location={restaurant.location}
         name={restaurant.name}
         address={restaurant.address}
+      />
+      <ListReviews
+        navigation={navigation}
+        idRestaurant={restaurant.id}
+        setRating={setRating}
+        //Si el usuario está logeado o no está logeado se implementa dentro del ListReviews
       />
     </ScrollView>
   );
