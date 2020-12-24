@@ -39,7 +39,15 @@ export default function AddReviewRestaurant(props) {
         rating: rating,
         createAt: new Date(),
       };
-      console.log(paylod);
+      db.collection("reviews")
+        .add(paylod)
+        .then(() => {
+          setIsLoading(false);
+        })
+        .catch(() => {
+          toastRef.current.show("Error al enviar la review");
+          setIsLoading(false);
+        });
     }
   };
 
