@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
-import { Rating, ListItem, Icon } from "react-native-elements";
+import { Rating, ListItem } from "react-native-elements";
 import { map } from "lodash";
-//import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 //import Toast from "react-native-easy-toast";
 import Loading from "../../components/Loading";
 import Carousel from "../../components/Carousel";
@@ -50,17 +50,19 @@ export default function Restaurant(props) {
 */
   }
 
-  useEffect(() => {
-    db.collection("restaurants")
-      .doc(id)
-      .get()
-      .then((response) => {
-        const data = response.data();
-        data.id = response.id;
-        setRestaurant(data);
-        setRating(data.rating);
-      });
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      db.collection("restaurants")
+        .doc(id)
+        .get()
+        .then((response) => {
+          const data = response.data();
+          data.id = response.id;
+          setRestaurant(data);
+          setRating(data.rating);
+        });
+    }, [])
+  );
 
   //  useEffect(() => {
   //    if (userLogged && restaurant) {
@@ -144,7 +146,7 @@ export default function Restaurant(props) {
       <ListReviews
         navigation={navigation}
         idRestaurant={restaurant.id}
-        setRating={setRating}
+
         //Si el usuario está logeado o no está logeado se implementa dentro del ListReviews
       />
     </ScrollView>
