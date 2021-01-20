@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
-import { Rating, ListItem } from "react-native-elements";
+import { Rating, ListItem, Icon } from "react-native-elements";
 import { map } from "lodash";
 import { useFocusEffect } from "@react-navigation/native";
 //import Toast from "react-native-easy-toast";
@@ -128,6 +128,16 @@ export default function Restaurant(props) {
 
   return (
     <ScrollView vertical style={styles.viewBody}>
+      <View style={styles.viewFavorite}>
+        <Icon
+          type="material-community"
+          name="heart"
+          onPress={() => console.log("Add favorites")}
+          color="#000"
+          size={35}
+          underlayColor="transparent"
+        />
+      </View>
       <Carousel
         arrayImages={restaurant.images}
         height={250}
