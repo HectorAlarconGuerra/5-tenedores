@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
 import { Rating, ListItem, Icon } from "react-native-elements";
 import { map } from "lodash";
 import { useFocusEffect } from "@react-navigation/native";
-//import Toast from "react-native-easy-toast";
+import Toast from "react-native-easy-toast";
 import Loading from "../../components/Loading";
 import Carousel from "../../components/Carousel";
 import Map from "../../components/Map";
@@ -20,35 +20,17 @@ export default function Restaurant(props) {
   const { navigation, route } = props;
   const { id, name } = route.params;
   const [restaurant, setRestaurant] = useState(null);
-
   const [rating, setRating] = useState(0);
-  //  const [isFavorite, setIsFavorite] = useState(false);
-  //  const [userLogged, setUserLogged] = useState(false);
-  //  const toastRef = useRef();
+  const [isFavorite, setIsFavorite] = useState(true);
+  const [userLogged, setUserLogged] = useState(false);
+  const toastRef = useRef();
   useEffect(() => {
     navigation.setOptions({ title: name });
   }, [navigation]);
 
-  //  firebase.auth().onAuthStateChanged((user) => {
-  //    user ? setUserLogged(true) : setUserLogged(false);
-  //  });
-
-  {
-    /*useFocusEffect(
-    useCallback(() => {
-      db.collection("restaurants")
-        .doc(id)
-        .get()
-        .then((response) => {
-          const data = response.data();
-          data.id = response.id;
-          setRestaurant(data);
-          setRating(data.rating);
-        });
-    }, [])
-  );
-*/
-  }
+  firebase.auth().onAuthStateChanged((user) => {
+    user ? setUserLogged(true) : setUserLogged(false);
+  });
 
   useFocusEffect(
     useCallback(() => {
@@ -78,51 +60,53 @@ export default function Restaurant(props) {
   //    }
   //  }, [userLogged, restaurant]);
 
-  //  const addFavorite = () => {
-  //    if (!userLogged) {
-  //      toastRef.current.show(
-  //        "Para usar el sistema de favoritos tienes que estar logeado"
-  //      );
-  //    } else {
-  //      const payload = {
-  //        idUser: firebase.auth().currentUser.uid,
-  //        idRestaurant: restaurant.id,
-  //      };
-  //      db.collection("favorites")
-  //        .add(payload)
-  //        .then(() => {
-  //          setIsFavorite(true);
-  //          toastRef.current.show("Restaurante añadido a favoritos");
-  //        })
-  //        .catch(() => {
-  //          toastRef.current.show("Error al añadir el restaurnate a favoritos");
-  //        });
-  //    }
-  //  };
+  const addFavorite = () => {
+    console.log("Añadir a favoritos");
+    //    if (!userLogged) {
+    //      toastRef.current.show(
+    //        "Para usar el sistema de favoritos tienes que estar logeado"
+    //      );
+    //    } else {
+    //      const payload = {
+    //        idUser: firebase.auth().currentUser.uid,
+    //        idRestaurant: restaurant.id,
+    //      };
+    //      db.collection("favorites")
+    //        .add(payload)
+    //        .then(() => {
+    //          setIsFavorite(true);
+    //          toastRef.current.show("Restaurante añadido a favoritos");
+    //        })
+    //        .catch(() => {
+    //          toastRef.current.show("Error al añadir el restaurnate a favoritos");
+    //        });
+    //    }
+  };
 
-  //  const removeFavorite = () => {
-  //    db.collection("favorites")
-  //      .where("idRestaurant", "==", restaurant.id)
-  //      .where("idUser", "==", firebase.auth().currentUser.uid)
-  //      .get()
-  //      .then((response) => {
-  //        response.forEach((doc) => {
-  //          const idFavorite = doc.id;
-  //          db.collection("favorites")
-  //            .doc(idFavorite)
-  //            .delete()
-  //            .then(() => {
-  //              setIsFavorite(false);
-  //              toastRef.current.show("Restaurante eliminado de favoritos");
-  //            })
-  //            .catch(() => {
-  //              toastRef.current.show(
-  //                "Error al eliminar el restaurante de favoritos"
-  //              );
-  //            });
-  //        });
-  //      });
-  //  };
+  const removeFavorite = () => {
+    console.log("Eliminar de favoritos");
+    //    db.collection("favorites")
+    //      .where("idRestaurant", "==", restaurant.id)
+    //      .where("idUser", "==", firebase.auth().currentUser.uid)
+    //      .get()
+    //      .then((response) => {
+    //        response.forEach((doc) => {
+    //          const idFavorite = doc.id;
+    //          db.collection("favorites")
+    //            .doc(idFavorite)
+    //            .delete()
+    //            .then(() => {
+    //              setIsFavorite(false);
+    //              toastRef.current.show("Restaurante eliminado de favoritos");
+    //            })
+    //            .catch(() => {
+    //              toastRef.current.show(
+    //                "Error al eliminar el restaurante de favoritos"
+    //              );
+    //            });
+    //        });
+    //      });
+  };
 
   if (!restaurant) return <Loading isVisible={true} text="Cargando..." />;
 
@@ -131,9 +115,9 @@ export default function Restaurant(props) {
       <View style={styles.viewFavorite}>
         <Icon
           type="material-community"
-          name="heart"
-          onPress={() => console.log("Add favorites")}
-          color="#000"
+          name={isFavorite ? "heart" : "heart-outline"}
+          onPress={isFavorite ? removeFavorite : addFavorite}
+          color={isFavorite ? "#f00" : "#000"}
           size={35}
           underlayColor="transparent"
         />
@@ -159,6 +143,7 @@ export default function Restaurant(props) {
 
         //Si el usuario está logeado o no está logeado se implementa dentro del ListReviews
       />
+      <Toast ref={toastRef} position="center" opacity={0.9} />
     </ScrollView>
   );
 }
